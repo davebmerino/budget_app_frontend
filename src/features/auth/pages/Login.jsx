@@ -12,6 +12,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { paths } from "@/paths";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -230,7 +232,7 @@ export default function Login() {
             </div>
 
             {/*Google Sign-In */}
-            
+
             <div className="grid ">
               <Button
                 type="button"
@@ -264,12 +266,11 @@ export default function Login() {
           <div className="mt-6 text-center space-y-3">
             <p className="text-sm text-vault-subtext">
               Don’t have an account?{" "}
-              <a
-                href="#signup"
-                className="text-emerald-primary hover:text-emerald-accent font-semibold ml-1 inline-flex items-center gap-0.5"
-              >
-                Sign up <span className="text-xs">&nearr;</span>
-              </a>
+              <Link to={paths.signup}>
+                <a className="text-emerald-primary hover:text-emerald-accent font-semibold ml-1 inline-flex items-center gap-0.5">
+                  Sign up <span className="text-xs">&nearr;</span>
+                </a>
+              </Link>
             </p>
 
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-vault-surface/80 border border-vault-border text-[11px] text-vault-muted font-mono tracking-wider">
