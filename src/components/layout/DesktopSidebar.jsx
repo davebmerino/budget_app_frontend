@@ -10,13 +10,50 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/utils/cn";
 import { NavLink } from "react-router-dom";
+import { paths } from "@/paths";
 
 const NAV_ITEMS = [
-  { key: "dashboard", label: "Dashboard", icon: LayoutGrid },
-  { key: "analytics", label: "Analytics", icon: BarChart3 },
-  { key: "budgets", label: "Budgets", icon: Wallet },
-  { key: "settings", label: "Settings", icon: Settings },
+  {
+    label: "Dashboard",
+    path: paths.dashboard,
+    icon: LayoutGrid,
+  },
+  {
+    label: "Analytics",
+    path: paths.analytics,
+    icon: BarChart3,
+  },
+  {
+    label: "Budgets",
+    path: paths.budgets,
+    icon: Wallet,
+  },
+  {
+    label: "Settings",
+    path: paths.settings,
+    icon: Settings,
+  },
 ];
+
+function SidebarLink({ to, Icon, label, end = false }) {
+  return (
+    <NavLink
+      to={to}
+      end={end}
+      className={({ isActive }) =>
+        cn(
+          "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
+          isActive
+            ? "bg-emerald-dim text-primary"
+            : "text-muted-foreground hover:bg-vault-surface hover:text-foreground",
+        )
+      }
+    >
+      <Icon className="size-4.5" />
+      <span>{label}</span>
+    </NavLink>
+  );
+}
 
 /**
  * Desktop-only persistent nav rail. Hidden below the md breakpoint, where
@@ -24,13 +61,7 @@ const NAV_ITEMS = [
  * onAdd contract as MobileBottomNav so pages can drive both from one state.
  */
 
-function SidebarLink({ to, Icon: icon, label, end }) {
-  return <NavLink></NavLink>;
-}
-
 export function DesktopSidebar({
-  active = "dashboard",
-  onNavigate,
   onAdd,
   hasUnread = true,
   avatarUrl,
@@ -57,7 +88,7 @@ export function DesktopSidebar({
         Add Transaction
       </button>
 
-      <nav className="mt-6 flex flex-col gap-1">
+      {/* <nav className="mt-6 flex flex-col gap-1">
         {NAV_ITEMS.map(({ key, label, icon: Icon }) => {
           const isActive = active === key;
           return (
@@ -77,6 +108,19 @@ export function DesktopSidebar({
             </button>
           );
         })}
+      </nav> */}
+
+      {/* Navigation */}
+      <nav className="mt-6 flex flex-col gap-1">
+        {NAV_ITEMS.map(({ label, path, icon: Icon }) => (
+          <SidebarLink
+            key={path}
+            to={path}
+            Icon={Icon}
+            label={label}
+            end={path === paths.dashboard}
+          />
+        ))}
       </nav>
 
       <div className="mt-auto flex items-center justify-between border-t border-border px-1 pt-4">

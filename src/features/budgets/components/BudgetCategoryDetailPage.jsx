@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { SlidersHorizontal, Utensils, ShoppingCart, Store, Coffee, CheckCircle2 } from "lucide-react";
+import {
+  SlidersHorizontal,
+  Utensils,
+  ShoppingCart,
+  Store,
+  Coffee,
+  CheckCircle2,
+} from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/button";
@@ -15,8 +22,20 @@ import { CategoryLedgerList } from "./CategoryLedgerList";
 // content here is clearly budget editing, so the title below reflects that
 // instead. Flag if the app bar should literally say something else.
 const SUB_ALLOCATIONS = [
-  { id: "groceries", icon: ShoppingCart, name: "Groceries & Markets", spent: 240, cap: 450 },
-  { id: "restaurants", icon: Store, name: "Restaurants & Takeout", spent: 135, cap: 250 },
+  {
+    id: "groceries",
+    icon: ShoppingCart,
+    name: "Groceries & Markets",
+    spent: 240,
+    cap: 450,
+  },
+  {
+    id: "restaurants",
+    icon: Store,
+    name: "Restaurants & Takeout",
+    spent: 135,
+    cap: 250,
+  },
   { id: "coffee", icon: Coffee, name: "Coffee & Cafes", spent: 35, cap: 100 },
 ];
 
@@ -53,18 +72,19 @@ const ALERTS = [
   { key: "lockdown", label: "Lockdown", value: "At $760.00", tone: "lockdown" },
 ];
 
-export function BudgetCategoryDetailPage({ onBack, onSave, onNavigate, onAddTransaction }) {
+export function BudgetCategoryDetailPage({
+  onBack,
+  onSave,
+  onNavigate,
+  onAddTransaction,
+}) {
   const [monthlyLimit, setMonthlyLimit] = useState(800);
   const [surplusRollover, setSurplusRollover] = useState(true);
 
   const handleSave = () => onSave?.({ monthlyLimit, surplusRollover });
 
   return (
-    <AppShell
-      showBottomNav={false}
-      nav={{ active: "budgets", onNavigate, onAdd: onAddTransaction }}
-      contentClassName="pb-28 md:pb-10"
-    >
+    <>
       <PageHeader title="Food & Dining" onBack={onBack} />
 
       <div className="flex items-center justify-between px-5 pb-3">
@@ -103,7 +123,9 @@ export function BudgetCategoryDetailPage({ onBack, onSave, onNavigate, onAddTran
             monthlyLimit={monthlyLimit}
             onDecrement={() => setMonthlyLimit((v) => Math.max(0, v - 50))}
             onIncrement={() => setMonthlyLimit((v) => v + 50)}
-            onQuickAdjust={(delta) => setMonthlyLimit((v) => Math.max(0, v + delta))}
+            onQuickAdjust={(delta) =>
+              setMonthlyLimit((v) => Math.max(0, v + delta))
+            }
             surplusRollover={surplusRollover}
             onSurplusRolloverChange={setSurplusRollover}
           />
@@ -142,6 +164,6 @@ export function BudgetCategoryDetailPage({ onBack, onSave, onNavigate, onAddTran
           </Button>
         </div>
       </div>
-    </AppShell>
+    </>
   );
 }

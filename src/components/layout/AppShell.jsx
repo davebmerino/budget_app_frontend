@@ -2,6 +2,9 @@ import { cn } from "@/utils/cn";
 import { DesktopSidebar } from "./DesktopSidebar";
 import { MobileBottomNav } from "./MobileBottomNav";
 
+import { Suspense } from "react";
+import { Outlet } from "react-router";
+
 /**
  * Wraps every primary (non-modal) screen. Below md: a single column capped
  * at mobile width, with bottom padding reserved for MobileBottomNav. At md+:
@@ -36,7 +39,9 @@ export function AppShell({
             contentClassName,
           )}
         >
-          {children}
+          <Suspense >
+            <Outlet />
+          </Suspense>
         </div>
       </div>
 

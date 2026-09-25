@@ -1,5 +1,37 @@
 import { cn } from "@/utils/cn";
-import { primaryNavItems } from "@/primaryNavItems";
+import { paths } from "@/paths";
+import {
+  Hexagon,
+  LayoutGrid,
+  BarChart3,
+  Wallet,
+  Settings,
+  Plus,
+  Bell,
+} from "lucide-react";
+
+const NAV_ITEMS = [
+  {
+    label: "Dashboard",
+    path: paths.dashboard,
+    icon: LayoutGrid,
+  },
+  {
+    label: "Analytics",
+    path: paths.analytics,
+    icon: BarChart3,
+  },
+  {
+    label: "Budgets",
+    path: paths.budgets,
+    icon: Wallet,
+  },
+  {
+    label: "Settings",
+    path: paths.settings,
+    icon: Settings,
+  },
+];
 /**
  * Fixed bottom navigation with a floating "+" action in the center.
  * `active` is the current tab key; `onAdd` fires from the center button,
@@ -9,7 +41,7 @@ export function MobileBottomNav({ active = "dashboard", onNavigate, onAdd }) {
   return (
     <nav className="md:hidden fixed inset-x-0 bottom-0 z-20">
       <div className="mx-auto flex w-full  items-center justify-between border-t border-border bg-card/95 px-6 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2.5 backdrop-blur">
-        {TABS.map(({ key, label, icon: Icon, isAction }) => {
+        {NAV_ITEMS.map(({ key, label, icon: Icon, isAction }) => {
           if (isAction) {
             return (
               <button

@@ -111,7 +111,7 @@ export function DashboardPage({
   const [activeTab, setActiveTab] = useState("dashboard");
 
   return (
-    <AppShell>
+    <>
       <MobileHeader title="Vault" />
 
       <SafeToSpendCard
@@ -150,6 +150,6 @@ export function DashboardPage({
         }}
         onAdd={onAddTransaction}
       />
-    </AppShell>
+    </>
   );
 }
