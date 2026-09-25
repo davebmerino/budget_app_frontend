@@ -1,14 +1,5 @@
-import { LayoutGrid, BarChart3, Plus, Wallet, Settings } from "lucide-react";
 import { cn } from "@/utils/cn";
-
-const TABS = [
-  { key: "dashboard", label: "Dashboard", icon: LayoutGrid },
-  { key: "analytics", label: "Analytics", icon: BarChart3 },
-  { key: "add", label: "Add", icon: Plus, isAction: true },
-  { key: "budgets", label: "Budgets", icon: Wallet },
-  { key: "settings", label: "Settings", icon: Settings },
-];
-
+import { primaryNavItems } from "@/primaryNavItems";
 /**
  * Fixed bottom navigation with a floating "+" action in the center.
  * `active` is the current tab key; `onAdd` fires from the center button,

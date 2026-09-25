@@ -103,7 +103,11 @@ const SAMPLE_ACTIVITY = [
   },
 ];
 
-export function DashboardPage({ onNavigate, onAddTransaction, onCategoryClick }) {
+export function DashboardPage({
+  onNavigate,
+  onAddTransaction,
+  onCategoryClick,
+}) {
   const [activeTab, setActiveTab] = useState("dashboard");
 
   return (

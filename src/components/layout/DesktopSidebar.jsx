@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/utils/cn";
+import { NavLink } from "react-router-dom";
 
 const NAV_ITEMS = [
   { key: "dashboard", label: "Dashboard", icon: LayoutGrid },
@@ -22,6 +23,11 @@ const NAV_ITEMS = [
  * MobileBottomNav takes over instead. Mirrors the same active/onNavigate/
  * onAdd contract as MobileBottomNav so pages can drive both from one state.
  */
+
+function SidebarLink({ to, Icon: icon, label, end }) {
+  return <NavLink></NavLink>;
+}
+
 export function DesktopSidebar({
   active = "dashboard",
   onNavigate,
