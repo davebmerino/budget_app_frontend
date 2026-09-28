@@ -10,13 +10,13 @@ import {
   Banknote,
   Clapperboard,
 } from "lucide-react";
-import { AppShell } from "@/components/layout/AppShell";
+
 import { MobileHeader } from "@/components/layout/MobileHeader";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
-import { SafeToSpendCard } from "./SafeToSpendCard";
-import { PaceOptimizationCard } from "./PaceOptimizationCard";
-import { CategoryVaultList } from "./CategoryVaultList";
-import { RecentActivityList } from "./RecentActivityList";
+import { SafeToSpendCard } from "../components/SafeToSpendCard";
+import { PaceOptimizationCard } from "../components/PaceOptimizationCard";
+import { CategoryVaultList } from "../components/CategoryVaultList";
+import { RecentActivityList } from "../components/RecentActivityList";
 
 // Placeholder data shaped like the API response this page will eventually
 // receive from features/dashboard/hooks/useDashboardSummary(). Replace with

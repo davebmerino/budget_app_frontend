@@ -2,7 +2,10 @@
  * Format a number as USD-style currency, e.g. formatCurrency(1400) -> "$1,400.00"
  * Pass { showSign: true } to prefix positive values with "+" (used for income lines).
  */
-export function formatCurrency(value, { currency = "USD", showSign = false } = {}) {
+export function formatCurrency(
+  value,
+  { currency = "USD", showSign = false } = {},
+) {
   const amount = Number(value) || 0;
   const formatted = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -18,4 +21,14 @@ export function formatCurrency(value, { currency = "USD", showSign = false } = {
 /** Format an integer/decimal as a compact percentage, e.g. formatPercent(51.25) -> "51%" */
 export function formatPercent(value) {
   return `${Math.round(Number(value) || 0)}%`;
+}
+
+/** Compact currency for chart axes, e.g. formatCompactCurrency(5420) -> "$5.4K" */
+export function formatCompactCurrency(value) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(Number(value) || 0);
 }

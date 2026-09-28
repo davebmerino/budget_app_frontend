@@ -10,11 +10,12 @@ import {
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/button";
-import { BudgetSummaryCard } from "./BudgetSummaryCard";
-import { TargetAllocationCard } from "./TargetAllocationCard";
-import { SmartAlertsCard } from "./SmartAlertsCard";
-import { SubAllocationList } from "./SubAllocationList";
-import { CategoryLedgerList } from "./CategoryLedgerList";
+import { BudgetSummaryCard } from "../components/BudgetSummaryCard";
+import { TargetAllocationCard } from "../components/TargetAllocationCard";
+import { SmartAlertsCard } from "../components/SmartAlertsCard";
+import { SubAllocationList } from "../components/SubAllocationList";
+import { CategoryLedgerList } from "../components/CategoryLedgerList";
+import { MobileHeader } from "@/components/layout/MobileHeader";
 
 // Placeholder data shaped like what features/budgets/hooks/useBudgetCategory(id)
 // will eventually return. The Stitch mock's top app-bar read "Add Transaction"
@@ -85,6 +86,7 @@ export function BudgetCategoryDetailPage({
 
   return (
     <>
+      <MobileHeader />
       <PageHeader title="Food & Dining" onBack={onBack} />
 
       <div className="flex items-center justify-between px-5 pb-3">

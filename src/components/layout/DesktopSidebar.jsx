@@ -6,34 +6,13 @@ import {
   Settings,
   Plus,
   Bell,
+  Import,
 } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/utils/cn";
 import { NavLink } from "react-router-dom";
+import { primaryNavItems } from "@/primaryNavItems";
 import { paths } from "@/paths";
-
-const NAV_ITEMS = [
-  {
-    label: "Dashboard",
-    path: paths.dashboard,
-    icon: LayoutGrid,
-  },
-  {
-    label: "Analytics",
-    path: paths.analytics,
-    icon: BarChart3,
-  },
-  {
-    label: "Budgets",
-    path: paths.budgets,
-    icon: Wallet,
-  },
-  {
-    label: "Settings",
-    path: paths.settings,
-    icon: Settings,
-  },
-];
 
 function SidebarLink({ to, Icon, label, end = false }) {
   return (
@@ -88,31 +67,9 @@ export function DesktopSidebar({
         Add Transaction
       </button>
 
-      {/* <nav className="mt-6 flex flex-col gap-1">
-        {NAV_ITEMS.map(({ key, label, icon: Icon }) => {
-          const isActive = active === key;
-          return (
-            <button
-              key={key}
-              type="button"
-              onClick={() => onNavigate?.(key)}
-              className={cn(
-                "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
-                isActive
-                  ? "bg-emerald-dim text-primary"
-                  : "text-muted-foreground hover:bg-vault-surface hover:text-foreground",
-              )}
-            >
-              <Icon className="size-4.5" />
-              {label}
-            </button>
-          );
-        })}
-      </nav> */}
-
       {/* Navigation */}
       <nav className="mt-6 flex flex-col gap-1">
-        {NAV_ITEMS.map(({ label, path, icon: Icon }) => (
+        {primaryNavItems.map(({ label, path, icon: Icon }) => (
           <SidebarLink
             key={path}
             to={path}
