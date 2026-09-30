@@ -7,6 +7,7 @@ import { BudgetCategoryDetailPage } from "./features/budgets/page/BudgetCategory
 import { AppShell } from "./components/layout/AppShell";
 import { AddTransactionPage } from "./features/transactions/pages/AddTransactionPage";
 import { AnalyticsPage } from "./features/analytics/page/AnalyticsPage";
+import { SettingsPage } from "./features/settings/page/SettingsPage";
 
 export const router = createBrowserRouter([
   {
@@ -20,8 +21,8 @@ export const router = createBrowserRouter([
     children: [
       { path: paths.dashboard, element: <DashboardPage /> },
       { path: paths.budgets, element: <BudgetCategoryDetailPage /> },
-      { path: paths.settings, element: <AddTransactionPage /> },
       { path: paths.analytics, element: <AnalyticsPage /> },
+      { path: paths.settings, element: <SettingsPage /> },
     ],
   },
 ]);

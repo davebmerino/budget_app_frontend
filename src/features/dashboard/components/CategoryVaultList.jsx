@@ -4,10 +4,15 @@ import { CategoryVaultItem } from "./CategoryVaultItem";
 /**
  * @param {{ categories: Array<Parameters<typeof CategoryVaultItem>[0]>, activeCount: number, onDetailedView?: () => void, onCategoryClick?: (id: string) => void }} props
  */
-export function CategoryVaultList({ categories, activeCount, onDetailedView, onCategoryClick }) {
+export function CategoryVaultList({
+  categories,
+  activeCount,
+  onDetailedView,
+  onCategoryClick,
+}) {
   return (
     <section className="mt-6 px-5">
-      <div className="flex items-center justify-between">
+      <div className="flex  items-center justify-between">
         <h2 className="text-xl font-bold tracking-tight">Category Vaults</h2>
         <div className="flex items-center gap-2">
           <span className="rounded-full bg-vault-surface px-2.5 py-1 text-xs font-medium text-muted-foreground">
