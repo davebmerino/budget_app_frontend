@@ -9,13 +9,17 @@ import { Mail, Lock, Eye, EyeOff, ShieldCheck } from "lucide-react";
 
 import { LoginSchema } from "@/schema/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useLogin from "../hooks/useLogin.hook";
 
 import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { paths } from "@/paths";
+import { toast } from "@/components/ui/toast";
 
 export default function Login() {
+  const { mutate: loginUser } = useLogin();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,7 +31,33 @@ export default function Login() {
     },
   });
 
-  function onSubmit(values) {}
+  function onSubmit(values) {
+    loginUser(values, {
+      onSuccess: (response) => {
+        const accessToken = response.data?.accessToken ?? response?.accessToken;
+
+        if (accessToken) {
+          localStorage.setItem("accessToken", accessToken);
+        }
+
+        navigate(paths.dashboard);
+
+        toast.add({
+          type: "success",
+          title: "Login successful",
+          description: "Welcome back!",
+        });
+      },
+      onError: (error) => {
+        toast.add({
+          type: "error",
+          title: "Unable to log in",
+
+          description: error.message || "Please check your email and password.",
+        });
+      },
+    });
+  }
 
   return (
     <>
@@ -266,10 +296,11 @@ export default function Login() {
           <div className="mt-6 text-center space-y-3">
             <p className="text-sm text-vault-subtext">
               Don’t have an account?{" "}
-              <Link to={paths.signup}>
-                <a className="text-emerald-primary hover:text-emerald-accent font-semibold ml-1 inline-flex items-center gap-0.5">
-                  Sign up <span className="text-xs">&nearr;</span>
-                </a>
+              <Link
+                to={paths.signup}
+                className="text-emerald-primary hover:text-emerald-accent font-semibold ml-1 inline-flex items-center gap-0.5"
+              >
+                Sign up <span className="text-xs">&nearr;</span>
               </Link>
             </p>
 

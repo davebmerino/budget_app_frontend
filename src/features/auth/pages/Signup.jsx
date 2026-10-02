@@ -358,10 +358,11 @@ export default function Signup() {
           <div className="mt-6 text-center space-y-3">
             <p className="text-sm text-vault-subtext">
               Already have a vault?{" "}
-              <Link to={paths.login}>
-                <a className="text-emerald-primary hover:text-emerald-accent font-semibold ml-1 inline-flex items-center gap-0.5">
-                  Log in <span className="text-xs">&rarr;</span>
-                </a>
+              <Link
+                to={paths.login}
+                className="text-emerald-primary hover:text-emerald-accent font-semibold ml-1 inline-flex items-center gap-0.5"
+              >
+                Log in <span className="text-xs">&rarr;</span>
               </Link>
             </p>
 

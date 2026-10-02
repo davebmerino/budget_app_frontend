@@ -7,4 +7,5 @@ export const paths = {
   settings: "/settings",
   profile: "/profile",
   notifications: "/notifications",
+  addTransaction: "/transactions/add",
 };
