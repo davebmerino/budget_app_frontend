@@ -8,11 +8,15 @@ import {
   Bell,
   Import,
 } from "lucide-react";
+
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/utils/cn";
 import { NavLink } from "react-router-dom";
 import { primaryNavItems } from "@/primaryNavItems";
 import { paths } from "@/paths";
+import { AddTransactionForm } from "@/features/transactions/components/AddTransactionForm";
+import { useState } from "react";
 
 function SidebarLink({ to, Icon, label, end = false }) {
   return (
@@ -49,6 +53,7 @@ export function DesktopSidebar({
   onBellClick,
   onAvatarClick,
 }) {
+  const [open, setOpen] = useState(false);
   return (
     <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-border bg-card px-4 py-6 md:flex">
       <div className="flex items-center gap-2.5 px-2">
@@ -58,14 +63,24 @@ export function DesktopSidebar({
         <span className="text-lg font-semibold tracking-tight">Vault</span>
       </div>
 
-      <button
-        type="button"
-        onClick={onAdd}
-        className="mt-6 flex items-center justify-center gap-2 rounded-2xl bg-primary py-2.5 text-sm font-semibold text-primary-foreground shadow-emerald-glow transition-transform hover:bg-primary/90 active:scale-[0.98]"
-      >
-        <Plus className="size-4" strokeWidth={2.5} />
-        Add Transaction
-      </button>
+      {/* Add Transaction Button */}
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger
+          render={
+            <button
+              type="button"
+              className="mt-6 flex items-center justify-center gap-2 rounded-2xl bg-primary py-2.5 text-sm font-semibold text-primary-foreground shadow-emerald-glow transition-transform hover:bg-primary/90 active:scale-[0.98]"
+            >
+              <Plus className="size-4" strokeWidth={2.5} />
+              Add Transaction
+            </button>
+          }
+        ></DialogTrigger>
+
+        <DialogContent>
+          <AddTransactionForm />
+        </DialogContent>
+      </Dialog>
 
       {/* Navigation */}
       <nav className="mt-6 flex flex-col gap-1">

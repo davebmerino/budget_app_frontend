@@ -15,7 +15,11 @@ const CATEGORIES = [
   { id: "transport", name: "Transport", icon: Bus },
 ];
 
-const DEFAULT_ACCOUNT = { name: "Chase Sapphire Preferred", vaultLabel: "Liquid Vault", last4: "4821" };
+const DEFAULT_ACCOUNT = {
+  name: "Chase Sapphire Preferred",
+  vaultLabel: "Liquid Vault",
+  last4: "4821",
+};
 
 export function AddTransactionForm({ onSave }) {
   const [type, setType] = useState("Expense");
@@ -37,10 +41,17 @@ export function AddTransactionForm({ onSave }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-5 pb-8">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-4 px-5 pb-8  rounded-3xl bg-card"
+    >
       <TransactionTypeTabs value={type} onChange={setType} />
       <AmountInput value={amount} onChange={setAmount} />
-      <CategoryPills categories={CATEGORIES} value={categoryId} onChange={setCategoryId} />
+      <CategoryPills
+        categories={CATEGORIES}
+        value={categoryId}
+        onChange={setCategoryId}
+      />
       <TransactionDetailsFields
         merchant={merchant}
         onMerchantChange={setMerchant}
