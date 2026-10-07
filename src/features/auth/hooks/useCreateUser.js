@@ -1,13 +1,16 @@
 import { useMutation } from "@tanstack/react-query";
 
 const useCreate = async (user) => {
-  const response = await fetch(`${import.meta.env.API_BASE_URL}/api/user`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/api/user`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
     },
-    body: JSON.stringify(user),
-  });
+  );
 
   const result = await response.json().catch(() => null);
 
@@ -18,7 +21,7 @@ const useCreate = async (user) => {
         : null;
     throw new Error(
       validationMessage ||
-        result.error.message ||
+        result?.error?.message ||
         "A user this email may already exists",
     );
   }

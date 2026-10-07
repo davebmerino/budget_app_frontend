@@ -32,6 +32,7 @@ export default function Login() {
   });
 
   function onSubmit(values) {
+    setIsLoading(true);
     loginUser(values, {
       onSuccess: (response) => {
         const accessToken = response.data?.accessToken ?? response?.accessToken;
@@ -57,6 +58,10 @@ export default function Login() {
         });
       },
     });
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1200);
   }
 
   return (

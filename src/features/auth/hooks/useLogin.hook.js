@@ -30,7 +30,7 @@ const loginUser = async (user) => {
 
     throw new Error(
       validationMessage ||
-        result?.error.message ||
+        result?.data.message ||
         `Login failed with status ${response.status}`,
     );
   }

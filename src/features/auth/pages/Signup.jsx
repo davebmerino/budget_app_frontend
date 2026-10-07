@@ -12,12 +12,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { paths } from "@/paths";
+import useCreateUser from "../hooks/useCreateUser";
+import { toast } from "@/components/ui/toast";
 
 export default function Signup() {
+  const { mutate: createUser } = useCreateUser();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const form = useForm({
     resolver: zodResolver(SignupSchema),
@@ -32,7 +36,31 @@ export default function Signup() {
 
   function onSubmit(values) {
     setIsLoading(true);
-    console.log("Creating Sovereign Vault account:", values);
+
+    createUser(values, {
+      onSuccess: () => {
+        toast.add({
+          type: "success",
+          title: "User created successfully",
+          description: "You can now log in and start creating tasks.",
+
+          actionProps: {
+            children: "Login here",
+            onClick: () => navigate("/"),
+          },
+        });
+      },
+
+      onError: (error) => {
+        toast.add({
+          type: "error",
+          title: "Error creating user",
+          description:
+            error.message ||
+            "There was an error creating your account. Please try again.",
+        });
+      },
+    });
     // Simulate API registration delay
     setTimeout(() => {
       setIsLoading(false);
