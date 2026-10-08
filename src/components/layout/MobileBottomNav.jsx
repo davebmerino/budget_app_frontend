@@ -4,6 +4,9 @@ import { Plus } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { primaryNavItems } from "@/primaryNavItems";
 import { paths } from "@/paths";
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import { useState } from "react";
+import { AddTransactionForm } from "@/features/transactions/components/AddTransactionForm";
 
 function NavItem({ path, label, icon: Icon }) {
   return (
@@ -38,6 +41,8 @@ export function MobileBottomNav({ onAdd }) {
   const leftItems = primaryNavItems.slice(0, 2);
   const rightItems = primaryNavItems.slice(2);
 
+  const [open, setOpen] = useState(false);
+
   return (
     <nav
       aria-label="Primary navigation"
@@ -50,14 +55,23 @@ export function MobileBottomNav({ onAdd }) {
         ))}
 
         {/* Center Add Transaction button */}
-        <button
-          type="button"
-          onClick={onAdd}
-          aria-label="Add transaction"
-          className="-translate-y-6 flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-emerald-glow transition-transform hover:bg-primary/90 active:scale-95"
-        >
-          <Plus className="size-7" strokeWidth={2.5} aria-hidden="true" />
-        </button>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger
+            render={
+              <button
+                type="button"
+                onClick={() => setOpen(true)}
+                aria-label="Add transaction"
+                className="-translate-y-6 flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-emerald-glow transition-transform hover:bg-primary/90 active:scale-95"
+              ></button>
+            }
+          >
+            <Plus className="size-7" strokeWidth={2.5} aria-hidden="true" />
+          </DialogTrigger>
+          <DialogContent>
+            <AddTransactionForm />
+          </DialogContent>
+        </Dialog>
 
         {/* Right navigation */}
         {rightItems.map((item) => (
