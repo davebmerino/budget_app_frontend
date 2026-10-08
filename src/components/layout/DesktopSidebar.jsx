@@ -17,6 +17,7 @@ import { primaryNavItems } from "@/primaryNavItems";
 import { paths } from "@/paths";
 import { AddTransactionForm } from "@/features/transactions/components/AddTransactionForm";
 import { useState } from "react";
+import { AddTransactionPage } from "@/features/transactions/pages/AddTransactionPage";
 
 function SidebarLink({ to, Icon, label, end = false }) {
   return (
@@ -78,7 +79,7 @@ export function DesktopSidebar({
         ></DialogTrigger>
 
         <DialogContent>
-          <AddTransactionForm />
+          <AddTransactionPage />
         </DialogContent>
       </Dialog>
 

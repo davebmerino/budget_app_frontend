@@ -7,6 +7,7 @@ import { paths } from "@/paths";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { useState } from "react";
 import { AddTransactionForm } from "@/features/transactions/components/AddTransactionForm";
+import { AddTransactionPage } from "@/features/transactions/pages/AddTransactionPage";
 
 function NavItem({ path, label, icon: Icon }) {
   return (
@@ -69,7 +70,7 @@ export function MobileBottomNav({ onAdd }) {
             <Plus className="size-7" strokeWidth={2.5} aria-hidden="true" />
           </DialogTrigger>
           <DialogContent>
-            <AddTransactionForm />
+            <AddTransactionPage />
           </DialogContent>
         </Dialog>
 
