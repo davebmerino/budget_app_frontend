@@ -1,34 +1,59 @@
 import { X } from "lucide-react";
-import { PageHeader } from "@/components/layout/PageHeader";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { AddTransactionForm } from "@/features/transactions/components/AddTransactionForm";
-import { MobileHeader } from "@/components/layout/MobileHeader";
 
 export function AddTransactionPage({
   onBack,
   onClose,
-  onSave,
-  avatarUrl,
-  avatarFallback = "U",
+  onSaveExpense,
+  onSaveIncome,
 }) {
+  const handleClose = onClose ?? onBack;
+
   return (
-    // Mobile: plain full-screen page. md+: the same content becomes a
-    // centered modal dialog over a dimmed backdrop, since a form this size
-    // shouldn't stretch edge-to-edge on a wide screen.
-    <div className="min-h-screen bg-background text-foreground  md:flex md:min-h-screen md:items-center md:justify-center md:bg-black/60 md:p-6 md:backdrop-blur-sm">
-      <div className="mx-auto  w-full max-w-md md:max-h-[calc(100vh-3rem)] md:max-w-lg md:overflow-y-auto md:rounded-3xl md:border md:border-border md:bg-background md:shadow-vault-card">
-        <div className="flex items-center justify-between p-5 pb-4">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-primary">
+    <div className="min-h-dvh w-full min-w-0 overflow-x-hidden bg-background text-foreground md:flex md:items-center md:justify-center md:bg-black/60 md:p-6 md:backdrop-blur-sm">
+      <div
+        className="
+          mx-auto flex min-h-dvh w-full min-w-0 flex-col
+          bg-background
+          md:min-h-0 md:max-h-[calc(100dvh-3rem)]
+          md:max-w-2xl md:overflow-hidden
+          md:rounded-3xl md:border md:border-border
+          md:shadow-2xl
+        "
+      >
+        {/* Header */}
+        <header className="sticky top-0 z-20 flex shrink-0 items-center justify-between gap-4 border-b border-border bg-background px-4 py-4 sm:px-6">
+          <div className="min-w-0">
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">
               Vault Protocol 01
             </p>
-            <h2 className="text-2xl font-bold tracking-tight">
-              New Transaction
-            </h2>
-          </div>
-        </div>
 
-        <AddTransactionForm onSave={onSave} />
+            <h1 className="mt-1 text-xl font-bold tracking-tight sm:text-2xl">
+              New Transaction
+            </h1>
+          </div>
+
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            onClick={handleClose}
+            disabled={!handleClose}
+            aria-label="Close transaction"
+            className="size-10 shrink-0 rounded-full border border-border bg-secondary/60 text-muted-foreground hover:bg-secondary hover:text-foreground"
+          >
+            <X className="size-5" />
+          </Button>
+        </header>
+
+        {/* Form */}
+        <main className="min-h-0 w-full min-w-0 flex-1 overflow-x-hidden overflow-y-auto px-4 py-5 sm:px-6 md:py-6">
+          <AddTransactionForm
+            onSaveExpense={onSaveExpense}
+            onSaveIncome={onSaveIncome}
+          />
+        </main>
       </div>
     </div>
   );

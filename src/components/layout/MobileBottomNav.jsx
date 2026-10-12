@@ -69,8 +69,8 @@ export function MobileBottomNav({ onAdd }) {
           >
             <Plus className="size-7" strokeWidth={2.5} aria-hidden="true" />
           </DialogTrigger>
-          <DialogContent>
-            <AddTransactionPage />
+          <DialogContent showCloseButton={false}>
+            <AddTransactionPage onClose={() => setOpen(false)} />
           </DialogContent>
         </Dialog>
 

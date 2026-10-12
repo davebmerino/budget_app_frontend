@@ -1,16 +1,13 @@
-import {
-  Hexagon,
-  LayoutGrid,
-  BarChart3,
-  Wallet,
-  Settings,
-  Plus,
-  Bell,
-  Import,
-} from "lucide-react";
+import { Hexagon, Plus, Bell, Import } from "lucide-react";
 
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { cn } from "@/utils/cn";
 import { NavLink } from "react-router-dom";
 import { primaryNavItems } from "@/primaryNavItems";
@@ -78,8 +75,13 @@ export function DesktopSidebar({
           }
         ></DialogTrigger>
 
-        <DialogContent>
-          <AddTransactionPage />
+        <DialogContent
+          showCloseButton={false}
+          className="flex h-dvh w-screen max-w-none flex-col overflow-hidden rounded-none p-0 sm:h-auto sm:max-h-[90dvh] sm:max-w-2xl sm:rounded-3xl"
+        >
+          <div className="min-h-0 flex-1 overflow-y-auto px-5 pb-5">
+            <AddTransactionPage onClose={() => setOpen(false)} />
+          </div>
         </DialogContent>
       </Dialog>
 
