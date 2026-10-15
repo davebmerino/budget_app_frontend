@@ -1,10 +1,6 @@
 import { z } from "zod";
 
-import {
-  amountSchema,
-  dateSchema,
-  requiredText,
-} from "@/lib/validation/commonSchema";
+import { amountSchema, requiredText } from "@/lib/validation/commonSchema";
 
 export const EXPENSE_CATEGORIES = [
   "housing",
@@ -27,5 +23,11 @@ export const expenseSchema = z.object({
 
   description: requiredText("Description", 500),
 
-  date: dateSchema,
+  date: z
+    .string()
+    .min(1, "Date is required")
+    .refine(
+      (value) => !Number.isNaN(new Date(value).getTime()),
+      "Please enter a valid date",
+    ),
 });

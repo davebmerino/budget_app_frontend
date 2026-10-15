@@ -1,10 +1,10 @@
 import { apiFetch } from "@/lib/apiFetch.js";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // Function to create an expense
 const createExpense = async (expense) => {
   const response = await apiFetch(
-    `${import.meta.env.VITE_API_BASE_URL}/api/expense/create`,
+    `${import.meta.env.VITE_API_BASE_URL}/api/expense`,
     {
       method: "POST",
       headers: {
@@ -39,7 +39,19 @@ const createExpense = async (expense) => {
 
 // Create mutation hook
 export default function useCreateExpense() {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: createExpense,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["expenses"],
+      });
+
+      // queryClient.invalidateQueries({
+      //   queryKey: ["monthly-summary"],
+      // });
+    },
   });
 }

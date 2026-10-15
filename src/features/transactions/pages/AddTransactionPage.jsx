@@ -2,12 +2,8 @@ import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AddTransactionForm } from "@/features/transactions/components/AddTransactionForm";
 
-export function AddTransactionPage({
-  onBack,
-  onClose,
-  onSaveExpense,
-  onSaveIncome,
-}) {
+export function AddTransactionPage({ onBack, onClose }) {
+  // Use onClose if available, otherwise use onBack
   const handleClose = onClose ?? onBack;
 
   return (
@@ -47,12 +43,9 @@ export function AddTransactionPage({
           </Button>
         </header>
 
-        {/* Form */}
+        {/* Transaction Form */}
         <main className="min-h-0 w-full min-w-0 flex-1 overflow-x-hidden overflow-y-auto px-4 py-5 sm:px-6 md:py-6">
-          <AddTransactionForm
-            onSaveExpense={onSaveExpense}
-            onSaveIncome={onSaveIncome}
-          />
+          <AddTransactionForm onSuccess={handleClose} />
         </main>
       </div>
     </div>

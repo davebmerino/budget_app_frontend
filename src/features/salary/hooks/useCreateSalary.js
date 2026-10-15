@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 // Function to create salary
 const createSalary = async (salary) => {
   const response = await apiFetch(
-    `${import.meta.env.VITE_API_BASE_URL}/api/salary/create`,
+    `${import.meta.env.VITE_API_BASE_URL}/api/salary`,
     {
       method: "POST",
       headers: {

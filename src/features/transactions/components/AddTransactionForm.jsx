@@ -15,6 +15,9 @@ import { getDefaultPeriodRange } from "../utils/payPeriod";
 
 import { expenseSchema } from "@/features/expense/schema/expenseSchema";
 import { salarySchema } from "@/features/salary/schemas/salarySchema";
+import useCreateExpense from "@/features/expense/hooks/useCreateExpense";
+import useCreateSalary from "@/features/salary/hooks/useCreateSalary";
+import { toast } from "@/components/ui/toast";
 
 const toDatetimeLocalValue = (date) => {
   const pad = (n) => String(n).padStart(2, "0");
@@ -29,8 +32,16 @@ const toDateValue = (date) => {
 
 const DEFAULT_PAY_PERIOD = "first-half";
 
-export function AddTransactionForm({ onSaveExpense, onSaveIncome }) {
+export function AddTransactionForm({ onSuccess }) {
   const [type, setType] = useState("Expense");
+
+  // Expense mutation
+  const { mutateAsync: createExpense, isPending: isCreatingExpense } =
+    useCreateExpense();
+
+  // Salary mutation
+  const { mutateAsync: createSalary, isPending: isCreatingSalary } =
+    useCreateSalary();
 
   const expenseForm = useForm({
     resolver: zodResolver(expenseSchema),
@@ -64,6 +75,8 @@ export function AddTransactionForm({ onSaveExpense, onSaveIncome }) {
     formState: { errors, isSubmitting },
   } = form;
 
+  const isSaving = isSubmitting || isCreatingExpense || isCreatingSalary;
+
   const values = watch();
 
   const updateField = (field, value) => {
@@ -88,7 +101,29 @@ export function AddTransactionForm({ onSaveExpense, onSaveIncome }) {
       date: new Date(data.date).toISOString(),
     };
 
-    await onSaveExpense?.(payload);
+    try {
+      // Send expense to backend
+      await createExpense(payload);
+
+      // Show success notification
+      toast.add({
+        type: "success",
+        title: "Expense created",
+        description: "Your expense was saved successfully.",
+      });
+
+      // Reset the form
+      expenseForm.reset();
+
+      // Close the transaction page/dialog
+      onSuccess?.();
+    } catch (error) {
+      toast.add({
+        type: "error",
+        title: "Error creating expense",
+        description: error.message,
+      });
+    }
   };
 
   const handleSalarySubmit = async (data) => {
@@ -100,7 +135,29 @@ export function AddTransactionForm({ onSaveExpense, onSaveIncome }) {
       periodEnd: `${data.periodEnd}T00:00:00.000Z`,
     };
 
-    await onSaveIncome?.(payload);
+    try {
+      // Send salary to backend
+      await createSalary(payload);
+
+      // Show success notification
+      toast.add({
+        type: "success",
+        title: "Salary created",
+        description: "Your salary was saved successfully.",
+      });
+
+      // Reset the form
+      salaryForm.reset();
+
+      // Close the transaction page/dialog
+      onSuccess?.();
+    } catch (error) {
+      toast.add({
+        type: "error",
+        title: "Error creating salary",
+        description: error.message,
+      });
+    }
   };
 
   const handleSubmit = isExpense
@@ -189,11 +246,12 @@ export function AddTransactionForm({ onSaveExpense, onSaveIncome }) {
       <Button
         type="submit"
         size="lg"
-        disabled={isSubmitting}
+        disabled={isSaving}
         className="w-full gap-2 rounded-2xl bg-primary text-primary-foreground shadow-emerald-glow hover:bg-primary/90"
       >
         <CheckCircle2 className="size-4.5" />
-        {isSubmitting ? "Saving..." : `Save ${type}`}
+
+        {isSaving ? "Saving..." : `Save ${type}`}
       </Button>
     </form>
   );
