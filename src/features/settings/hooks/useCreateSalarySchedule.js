@@ -1,12 +1,12 @@
 import { apiFetch } from "@/lib/apiFetch.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-// Function to save salary schedule
-const saveSalarySchedule = async (schedule) => {
+// Function to create a salary schedule
+const createSalarySchedule = async (schedule) => {
   const response = await apiFetch(
-    `${import.meta.env.VITE_API_BASE_URL}/api/salary-schedule`,
+    `${import.meta.env.VITE_API_BASE_URL}/api/salary-schedule/create`,
     {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -30,7 +30,7 @@ const saveSalarySchedule = async (schedule) => {
       validationErrors[0]?.msg ||
         result?.error?.message ||
         result?.message ||
-        `Saving salary schedule failed with status ${response.status}`,
+        `Creating salary schedule failed with status ${response.status}`,
     );
   }
 
@@ -38,11 +38,11 @@ const saveSalarySchedule = async (schedule) => {
 };
 
 // Create mutation hook
-export default function useSaveSalarySchedule() {
+export default function useCreateSalarySchedule() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: saveSalarySchedule,
+    mutationFn: createSalarySchedule,
 
     onSuccess: () => {
       queryClient.invalidateQueries({
