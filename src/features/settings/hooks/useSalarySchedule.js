@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 // Function to fetch salary schedule
 const fetchSalarySchedule = async () => {
   const response = await apiFetch(
-    `${import.meta.env.VITE_API_BASE_URL}/api/salary-schedule/fetch`,
+    `${import.meta.env.VITE_API_BASE_URL}/api/salary-date`,
     {
       method: "GET",
       credentials: "include",

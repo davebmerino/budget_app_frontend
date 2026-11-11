@@ -60,7 +60,10 @@ export function SalaryScheduleCard({ schedule, onSave, isSaving = false }) {
   );
 
   // Check whether the user changed the schedule
+  const hasSchedule = Boolean(schedule?._id);
+
   const hasChanges =
+    !hasSchedule ||
     firstPayDay !== (schedule?.firstPayDay ?? 1) ||
     secondPayDay !== (schedule?.secondPayDay ?? 15);
 
@@ -68,7 +71,7 @@ export function SalaryScheduleCard({ schedule, onSave, isSaving = false }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (isSaving || !hasChanges) return;
+    if (isSaving || !hasChanges || !onSave) return;
 
     await onSave?.({
       firstPayDay,
@@ -91,7 +94,9 @@ export function SalaryScheduleCard({ schedule, onSave, isSaving = false }) {
           <h2 className="font-semibold">Salary Schedule</h2>
 
           <p className="text-xs text-muted-foreground">
-            When your paycheck lands each month
+            {hasSchedule
+              ? "Manage when your paycheck lands each month"
+              : "You haven't set up your salary schedule yet. Choose your payday dates to get started."}
           </p>
         </div>
       </div>
@@ -138,7 +143,11 @@ export function SalaryScheduleCard({ schedule, onSave, isSaving = false }) {
       >
         <CheckCircle2 className="size-4.5" />
 
-        {isSaving ? "Saving..." : "Save Schedule"}
+        {isSaving
+          ? "Saving..."
+          : hasSchedule
+            ? "Update Schedule"
+            : "Create Schedule"}
       </Button>
     </form>
   );

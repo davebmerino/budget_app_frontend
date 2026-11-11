@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Function to create a salary schedule
 const createSalarySchedule = async (schedule) => {
   const response = await apiFetch(
-    `${import.meta.env.VITE_API_BASE_URL}/api/salary-schedule/create`,
+    `${import.meta.env.VITE_API_BASE_URL}/api/salary-date`,
     {
       method: "POST",
       headers: {

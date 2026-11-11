@@ -4,9 +4,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Function to update salary schedule
 const updateSalarySchedule = async (schedule) => {
   const response = await apiFetch(
-    `${import.meta.env.VITE_API_BASE_URL}/api/salary-schedule/update`,
+    `${import.meta.env.VITE_API_BASE_URL}/api/salary-date`,
     {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
